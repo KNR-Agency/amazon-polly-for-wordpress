@@ -88,15 +88,16 @@ class AmazonAI_PostMetaBox {
 
       usort($voices['Voices'], 'sort_polly_voices');
 
-      echo '<p>Voice name: <select name="amazon_polly_voice_id" id="amazon_polly_voice_id" >';
+      echo '<p>(B) Voice name: <select name="amazon_polly_voice_id" id="amazon_polly_voice_id" >';
       foreach ($voices['Voices'] as $voice) {
-        if (strpos($voice['LanguageName'], $language_name) !== false) {
-          echo '<option value="' . esc_attr($voice['Id']) . '" ';
-          if (strcmp($voice_id, $voice['Id']) === 0) {
-            echo 'selected="selected"';
-          }
-          echo '>' . esc_attr($voice['LanguageName']) . ' - ' . esc_attr($voice['Id']) . '</option>';
+        if (strpos($voice['LanguageName'], $language_name) === false) ;
+          // continue;
+
+        echo '<option value="' . esc_attr($voice['Id']) . '" ';
+        if (strcmp($voice_id, $voice['Id']) === 0) {
+          echo 'selected="selected"';
         }
+        echo '>' . esc_attr($voice['LanguageName']) . ' - ' . esc_attr($voice['Id']) . '</option>';
       }
       echo '</select></p>';
 

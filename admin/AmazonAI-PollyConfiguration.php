@@ -62,7 +62,7 @@ class AmazonAI_PollyConfiguration {
         if ($this->common->is_polly_enabled() ) {
             if ($this->common->validate_amazon_polly_access()) {
                 if ($this->common->is_language_supported_for_polly()) {
-                  add_settings_field( 'amazon_polly_voice_id', __( 'Voice name:', 'amazonpolly' ), array( $this, 'voices_gui' ), 'amazon_ai_polly', 'amazon_ai_polly', array( 'label_for' => 'amazon_polly_voice_id' ) );
+                  add_settings_field( 'amazon_polly_voice_id', __( '(A) Voice name:', 'amazonpolly' ), array( $this, 'voices_gui' ), 'amazon_ai_polly', 'amazon_ai_polly', array( 'label_for' => 'amazon_polly_voice_id' ) );
                   register_setting('amazon_ai_polly', 'amazon_polly_voice_id');
 
                     add_settings_field( 'amazon_polly_neural', __( 'Neural Text-To-Speech:', 'amazonpolly' ), array( $this, 'neural_gui' ), 'amazon_ai_polly', 'amazon_ai_polly', array( 'label_for' => 'amazon_polly_neural' ) );

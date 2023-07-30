@@ -1100,7 +1100,7 @@ class AmazonAI_Common
 	}
 
 	public function is_neural_supported_for_voice($voice) {
-		$neural_supported_voices = array("Olivia","Amy","Emma","Brian","Ivy","Joanna","Kendra","Kimberly","Salli","Joey","Justin","Kevin","Matthew","Camila","Lupe");
+		$neural_supported_voices = array("Olivia","Amy","Emma","Brian","Ivy","Joanna","Kendra","Kimberly","Salli","Joey","Justin","Kevin","Matthew","Camila","Lupe","Lea","Ruth");
 
 		if (in_array($voice, $neural_supported_voices)) {
 			return true;

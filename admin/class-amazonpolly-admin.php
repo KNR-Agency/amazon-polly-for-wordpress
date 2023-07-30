@@ -326,7 +326,7 @@ class Amazonpolly_Admin {
 		// ************* POLLY SETTINGS SECTION ************ *
 		add_settings_section( 'amazon_polly_pollysettings', __( 'Amazon Polly settings', 'amazonpolly' ), array( $this, 'amazon_polly_pollysettings_cb' ), $this->plugin_name );
 		add_settings_field( 'amazon_polly_sample_rate', __( 'Sample rate:', 'amazonpolly' ), array( $this, 'amazon_polly_sample_rate_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_sample_rate' ) );
-		add_settings_field( 'amazon_polly_voice_id', __( 'Voice name:', 'amazonpolly' ), array( $this, 'amazon_polly_voice_id_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_voice_id' ) );
+		add_settings_field( 'amazon_polly_voice_id', __( '(B) Voice name:', 'amazonpolly' ), array( $this, 'amazon_polly_voice_id_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_voice_id' ) );
 		add_settings_field( 'amazon_polly_auto_breaths', __( 'Automated breaths:', 'amazonpolly' ), array( $this, 'amazon_polly_auto_breaths_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_auto_breaths_id' ) );
 		add_settings_field( 'amazon_polly_ssml', __( 'Enable SSML support:', 'amazonpolly' ), array( $this, 'amazon_polly_ssml_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_ssml' ) );
 		add_settings_field( 'amazon_polly_lexicons', __( 'Lexicons:', 'amazonpolly' ), array( $this, 'amazon_polly_lexicons_cb' ), $this->plugin_name, 'amazon_polly_pollysettings', array( 'label_for' => 'amazon_polly_lexicons' ) );

@@ -138,7 +138,7 @@ function display_polly_gui($post) {
 
 		usort( $voices['Voices'], 'sort_polly_voices' );
 
-		echo '<p>Voice name: <select name="amazon_polly_voice_id" id="amazon_polly_voice_id" >';
+		echo '<p>(A) Voice name: <select name="amazon_polly_voice_id" id="amazon_polly_voice_id" >';
 		foreach ( $voices['Voices'] as $voice ) {
 			if (strpos($voice['LanguageName'], $language_name) !== false) {
 				echo '<option value="' . esc_attr( $voice['Id'] ) . '" ';
