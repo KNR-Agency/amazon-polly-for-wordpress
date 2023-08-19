@@ -98,8 +98,8 @@ class ClientResolver
         'version' => [
             'type'     => 'value',
             'valid'    => ['string'],
-            'required' => [__CLASS__, '_missing_version'],
             'doc'      => 'The version of the webservice to utilize (e.g., 2006-03-01).',
+            'default' => 'latest',
         ],
         'signature_provider' => [
             'type'    => 'value',
@@ -279,13 +279,6 @@ class ClientResolver
             'valid'     => ['bool'],
             'doc'       => 'Set to false to disable checking for shared aws config files usually located in \'~/.aws/config\' and \'~/.aws/credentials\'.  This will be ignored if you set the \'profile\' setting.',
             'default'   => true,
-        ],
-        'suppress_php_deprecation_warning' => [
-            'type'      => 'value',
-            'valid'     => ['bool'],
-            'doc'       => 'Set to false to disable the deprecation warning of PHP versions 7.2.4 and below',
-            'default'   => false,
-            'fn'        => [__CLASS__, '_apply_suppress_php_deprecation_warning']
         ],
     ];
 
@@ -1026,21 +1019,6 @@ class ClientResolver
         }
     }
 
-    public static function _apply_suppress_php_deprecation_warning($suppressWarning, array &$args) {
-        if ($suppressWarning) {
-            $args['suppress_php_deprecation_warning'] = true;
-        } elseif (!empty($_ENV["AWS_SUPPRESS_PHP_DEPRECATION_WARNING"])) {
-            $args['suppress_php_deprecation_warning'] =
-                $_ENV["AWS_SUPPRESS_PHP_DEPRECATION_WARNING"];
-        } elseif (!empty($_SERVER["AWS_SUPPRESS_PHP_DEPRECATION_WARNING"])) {
-            $args['suppress_php_deprecation_warning'] =
-                $_SERVER["AWS_SUPPRESS_PHP_DEPRECATION_WARNING"];
-        } elseif (!empty(getenv("AWS_SUPPRESS_PHP_DEPRECATION_WARNING"))) {
-            $args['suppress_php_deprecation_warning']
-                = getenv("AWS_SUPPRESS_PHP_DEPRECATION_WARNING");
-        }
-    }
-
     public static function _default_endpoint_provider(array $args)
     {
         $service =  isset($args['api']) ? $args['api'] : null;
@@ -1135,33 +1113,6 @@ class ClientResolver
         return isset($args['__partition_result']['signingRegion'])
             ? $args['__partition_result']['signingRegion']
             : $args['region'];
-    }
-
-    public static function _missing_version(array $args)
-    {
-        $service = isset($args['service']) ? $args['service'] : '';
-        $versions = ApiProvider::defaultProvider()->getVersions($service);
-        $versions = implode("\n", array_map(function ($v) {
-            return "* \"$v\"";
-        }, $versions)) ?: '* (none found)';
-
-        return <<<EOT
-A "version" configuration value is required. Specifying a version constraint
-ensures that your code will not be affected by a breaking change made to the
-service. For example, when using Amazon S3, you can lock your API version to
-"2006-03-01".
-
-Your build of the SDK has the following version(s) of "{$service}": {$versions}
-
-You may provide "latest" to the "version" configuration value to utilize the
-most recent available API version that your client's API provider can find.
-Note: Using 'latest' in a production application is not recommended.
-
-A list of available API versions can be found on each client's API documentation
-page: http://docs.aws.amazon.com/aws-sdk-php/v3/api/index.html. If you are
-unable to load a specific API version, then you may need to update your copy of
-the SDK.
-EOT;
     }
 
     public static function _missing_region(array $args)
